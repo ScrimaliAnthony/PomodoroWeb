@@ -8,6 +8,30 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-pomodoro}
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -h 127.0.0.1"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+      start_period: 5s
+
+  migrations:
+    image: flyway/flyway:11.14-alpine@sha256:6bc960b4221686ce4bb57130bcd5439a909eb1360457b2a741dae3c877f1d6ef
+    depends_on:
+      db:
+        condition: service_healthy
+    command: [
+      "migrate",
+      "-X"
+    ]
+    environment:
+      FLYWAY_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-pomodoro}
+      FLYWAY_USER: ${POSTGRES_USER:?required}
+      FLYWAY_PASSWORD: ${POSTGRES_PASSWORD:?required}
+      FLYWAY_CONNECT_RETRIES: "60"
+      FLYWAY_DEFAULT_SCHEMA: public
+    volumes:
+      - ./migrations:/flyway/sql:ro
 
 volumes:
   pg_data:
