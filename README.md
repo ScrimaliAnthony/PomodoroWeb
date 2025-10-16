@@ -6,13 +6,12 @@ Le projet doit être reproductible. Pour cela, il sera dockerisé.
 
 ### Base de données
 
-- PostgreSQL (Base de Données)
-- Flyway (Migration de la base de données)
-- pgAdmin (Administrer la Base de Données)
+- PostgreSQL 17.6 (Base de Données)
+- Flyway 11.14 (Migration de la base de données)
 
 ### BackEnd
 
-- Node (Runtime)
+- Node 22.20 (Runtime)
 - Express (Routing)
 - bcrypt (Hachage)
 - JWT (token de session)
