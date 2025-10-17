@@ -6,21 +6,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY cert/ /usr/local/share/ca-certificates/
 RUN update-ca-certificates
-
-ARG UID=1000
-ARG GID=1000
-RUN groupadd -g "${GID}" pomodoroapi && useradd -m -u "${UID}" -g "${GID}" pomodoroapi pomodoroapi
-
-WORKDIR /app
-
-USER pomodoroapi
-COPY --chown=pomodoroapi:pomodoroapi package*.json ./
-
-ENV NODE_ENV=development
 ENV NODE_OPTIONS=--use-openssl-ca
 
-RUN npm ci --no-audit --no-fund
+WORKDIR /app
+RUN chown -R node:node /app
 
+USER node
+COPY --chown=node:node package*.json ./
+
+RUN npm ci --no-audit --no-fund
 
 EXPOSE 3000 9229
 

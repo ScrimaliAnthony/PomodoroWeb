@@ -2,4 +2,3 @@ node_modules
 npm-debug.log*
 .git
 Dockerfile
-cert/zscaler-root-ca.crt
