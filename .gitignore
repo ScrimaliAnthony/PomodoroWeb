@@ -1,1 +1,3 @@
 .env
+api/cert/zscaler-root-ca.crt
+api/node_modules
