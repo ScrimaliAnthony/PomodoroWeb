@@ -14,6 +14,8 @@ services:
       timeout: 2s
       retries: 30
       start_period: 5s
+    networks:
+      - backend
 
   migrations:
     image: flyway/flyway:11.14-alpine@sha256:6bc960b4221686ce4bb57130bcd5439a909eb1360457b2a741dae3c877f1d6ef
@@ -32,6 +34,8 @@ services:
       FLYWAY_DEFAULT_SCHEMA: public
     volumes:
       - ./migrations:/flyway/sql:ro
+    networks:
+      - backend
 
   api:
     build:
@@ -47,9 +51,15 @@ services:
     volumes:
       - ./api:/app
       - /app/node_modules
-    ports:
-      - "${API_PORT:-3000}:${API_PORT:-3000}"
-      - "9229:9229"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+      start_period: 5s
+    networks:
+      - backend
+      - web
 
   frontend:
     build:
@@ -62,6 +72,14 @@ services:
       - /app/node_modules
     ports:
      - "5173:5173"
+    networks:
+      - web
 
 volumes:
   pg_data:
+
+networks:
+  backend:
+    internal: true
+  web:
+    driver: bridge
