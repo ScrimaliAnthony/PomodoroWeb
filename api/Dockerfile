@@ -16,6 +16,8 @@ COPY --chown=node:node package*.json ./
 
 RUN npm ci --no-audit --no-fund
 
+COPY --chown=node:node ./src ./src
+
 EXPOSE 3000 9229
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
