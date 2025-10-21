@@ -7,7 +7,9 @@ app.use(express.json());
 const PORT = process.env.API_PORT;
 const HOST = process.env.HOST;
 
-app.get("/health", async (_req, res) => {
+const api = express.Router();
+
+api.get("/health", async (_req, res) => {
   try {
     const r = await pool.query("select 1 as ok");
     res.json({ db: "up", result: r.rows[0] });
@@ -17,7 +19,9 @@ app.get("/health", async (_req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.use("/api", api);
+
+app.listen(PORT, HOST, () => {
   console.log(`API démarrée sur http://${HOST}:${PORT}`);
 });
 
