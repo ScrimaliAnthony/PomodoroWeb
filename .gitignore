@@ -3,3 +3,7 @@
 api.env
 api/cert/zscaler-root-ca.crt
 api/node_modules
+
+frontend/cert/zscaler-root-ca.crt
+frontend/node_modules
+frontend.env
