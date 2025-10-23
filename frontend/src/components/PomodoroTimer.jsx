@@ -8,7 +8,7 @@ function formatMS(totalSeconds) {
   return `${mm}:${ss}`;
 }
 
-export default function PomodoroTimer({ start }) {
+export default function PomodoroTimer({ start, minutes, seconds }) {
   const [timer, setTimer] = useState(start);
 
   useEffect(() => {
@@ -21,5 +21,9 @@ export default function PomodoroTimer({ start }) {
     return () => clearTimeout(id);
   }, [timer]);
 
-  return <div>{timer > 0 ? formatMS(timer) : "Terminé !"}</div>;
+  return (
+    <>
+      <div>{timer > 0 ? formatMS(timer) : "Terminé !"}</div>
+    </>
+  )
 }
