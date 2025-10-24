@@ -8,18 +8,18 @@ function formatMS(totalSeconds) {
   return `${mm}:${ss}`;
 }
 
-export default function PomodoroTimer({ start, minutes, seconds }) {
-  const [timer, setTimer] = useState(start);
+export default function PomodoroTimer({ selectedTime, isStart }) {
+  const [timer, setTimer] = useState(selectedTime);
 
   useEffect(() => {
-    setTimer(start);
-  }, [start]);
+    setTimer(selectedTime);
+  }, [selectedTime]);
 
   useEffect(() => {
-    if (timer <= 0) return;
+    if (!isStart || timer <= 0) return;
     const id = setTimeout(() => setTimer((t) => Math.max(0, t - 1)), 1000);
     return () => clearTimeout(id);
-  }, [timer]);
+  }, [timer, isStart]);
 
   return (
     <>
