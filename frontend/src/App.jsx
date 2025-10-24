@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import PomodoroTimer from "./components/PomodoroTimer";
+import StartPausePomodoro from "./components/StartPausePomodoro";
+import UpdatePomodoro from "./components/UpdatePomodoro";
+
+import { useEffect, useState } from "react";
 
 export default function App() {
-  const [data, setData] = useState(null)
-  const [err, setErr] = useState(null)
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
+  const [selectedTime, setSelectedTime] = useState();
+  const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {
-    fetch('/api/health')
-      .then(r => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then(setData)
-      .catch(setErr)
-  }, [])
+    setSelectedTime(minutes * 60 + seconds)
+  }, [minutes, seconds])
 
-  if (err)   return <p style={{ color: 'crimson' }}>Erreur : {String(err.message || err)}</p>
-  if (!data) return <p>Chargement…</p>
-  return <pre>{JSON.stringify(data, null, 2)}</pre>
+  return (
+    <>
+      <h1>Pomodoro</h1>
+      <PomodoroTimer selectedTime={selectedTime} isStart={isStart}/>
+      <StartPausePomodoro isStart={isStart} setIsStart={setIsStart} />
+      <UpdatePomodoro setMinutes={setMinutes} setSeconds={setSeconds} />
+    </>
+  )
 }
