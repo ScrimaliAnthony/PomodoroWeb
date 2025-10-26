@@ -6,6 +6,7 @@ import { toTotalSeconds } from "./utils/formatTime";
 
 import { useEffect, useState } from "react";
 import ListTimers from "./components/list-timers/ListTimers";
+import AddTimer from "./components/add-timer/AddTimer";
 
 export default function App() {
   // const [minutes, setMinutes] = useState(25);
@@ -28,9 +29,10 @@ export default function App() {
       <h1>Pomodoro</h1>
       <ListTimers timers={timers} currentIndex={currentIndex} />
       <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1}/>
-      <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} />
-      <Timer selectedTime={selectedTime} isStart={isStart}/>
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
+      <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} />
+      <AddTimer timers={timers} setTimers={setTimers}/>
+      <Timer selectedTime={selectedTime} isStart={isStart}/>
       {/* <UpdateTimer setMinutes={setMinutes} setSeconds={setSeconds} /> */}
     </>
   )
