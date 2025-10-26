@@ -32,8 +32,8 @@ export default function App() {
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
       <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} />
       <AddTimer timers={timers} setTimers={setTimers}/>
+      <UpdateTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} />
       <Timer selectedTime={selectedTime} isStart={isStart}/>
-      {/* <UpdateTimer setMinutes={setMinutes} setSeconds={setSeconds} /> */}
     </>
   )
 }
