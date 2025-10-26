@@ -1,6 +1,6 @@
-import PomodoroTimer from "./components/PomodoroTimer";
-import StartPausePomodoro from "./components/StartPausePomodoro";
-import UpdatePomodoro from "./components/UpdatePomodoro";
+import Timer from "./components/timer/Timer";
+import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
+import UpdateTimer from "./components/Update-timer/UpdateTimer";
 
 import { useEffect, useState } from "react";
 
@@ -24,9 +24,9 @@ export default function App() {
     <>
       <h1>Pomodoro</h1>
       
-      <PomodoroTimer selectedTime={selectedTime} isStart={isStart}/>
-      <StartPausePomodoro isStart={isStart} setIsStart={setIsStart} />
-      {/* <UpdatePomodoro setMinutes={setMinutes} setSeconds={setSeconds} /> */}
+      <Timer selectedTime={selectedTime} isStart={isStart}/>
+      <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
+      {/* <UpdateTimer setMinutes={setMinutes} setSeconds={setSeconds} /> */}
     </>
   )
 }
