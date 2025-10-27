@@ -19,7 +19,7 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
         const newTimer = timers.map((timer, index) => {
             if (index === currentIndex) {
                 return {
-                    ...timers,
+                    ...timer,
                     label: labelInput,
                     minutes: parseInt(minutesInput),
                     seconds: parseInt(secondsInput)

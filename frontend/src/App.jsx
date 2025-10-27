@@ -9,8 +9,6 @@ import ListTimers from "./components/list-timers/ListTimers";
 import AddTimer from "./components/add-timer/AddTimer";
 
 export default function App() {
-  // const [minutes, setMinutes] = useState(25);
-  // const [seconds, setSeconds] = useState(0);
   const [selectedTime, setSelectedTime] = useState();
   const [isStart, setIsStart] = useState(false);
   const [timers, setTimers] = useState([
