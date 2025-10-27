@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddTimer({ timers, setTimers }) {
+export default function AddTimer({ timers, setTimers, currentIndex, setCurrentIndex }) {
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [minutesInput, setMinutesInput] = useState('');
     const [secondsInput, setSecondsInput] = useState('');
@@ -16,14 +16,25 @@ export default function AddTimer({ timers, setTimers }) {
             return;
         }
 
-        const newTimers = {
-            id: timers.length,
+        const newTimer = {
+            id: currentIndex +1,
             label: labelInput,
             minutes: parseInt(minutesInput),
             seconds: parseInt(secondsInput)
         };
 
-        setTimers([...timers, newTimers]);
+        const before = timers.slice(0, currentIndex + 1);
+        const after = timers.slice(currentIndex + 1);
+
+        const updatedTimers = [...before, newTimer, ...after];
+
+        const reindexedTimers = updatedTimers.map((timer, index) => ({
+            ...timer,
+            id: index
+        }));
+
+        setTimers(reindexedTimers);
+        setCurrentIndex(currentIndex + 1);
 
         setLabelInput('');
         setMinutesInput('');

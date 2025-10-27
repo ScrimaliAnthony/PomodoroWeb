@@ -2,11 +2,13 @@ import Timer from "./components/timer/Timer";
 import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
 import UpdateTimer from "./components/Update-timer/UpdateTimer";
 import TimerNavigator from "./components/timer-navigator/TimerNavigator";
+import ListTimers from "./components/list-timers/ListTimers";
+import AddTimer from "./components/add-timer/AddTimer";
+import DeleteTimer from "./components/delete-timer/DeleteTimer";
+
 import { toTotalSeconds } from "./utils/formatTime";
 
 import { useEffect, useState } from "react";
-import ListTimers from "./components/list-timers/ListTimers";
-import AddTimer from "./components/add-timer/AddTimer";
 
 export default function App() {
   const [selectedTime, setSelectedTime] = useState();
@@ -29,9 +31,12 @@ export default function App() {
       <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1}/>
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
       <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} />
-      <AddTimer timers={timers} setTimers={setTimers}/>
+      <AddTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}/>
       <UpdateTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} />
+      <DeleteTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex}  />
       <Timer selectedTime={selectedTime} isStart={isStart}/>
+      <p>currentIndex : {currentIndex}</p>
+      <p>currentId : {timers[currentIndex].id}</p>
     </>
   )
 }
