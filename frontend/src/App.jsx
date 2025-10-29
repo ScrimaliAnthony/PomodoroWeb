@@ -22,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     setSelectedTime(toTotalSeconds(timers[currentIndex].minutes, timers[currentIndex].seconds))
-  }, [timers[currentIndex].minutes, timers[currentIndex].seconds]);
+  }, [timers[currentIndex].minutes, timers[currentIndex].seconds, currentIndex]);
 
   return (
     <>

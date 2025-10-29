@@ -6,19 +6,16 @@ export default function PomodoroTimer({ selectedTime, isStart, currentIndex, set
 
   useEffect(() => {
     setTimer(selectedTime);
-  }, [selectedTime]);
+  }, [selectedTime, currentIndex]);
 
   useEffect(() => {
-    if (!isStart || timer <= 0) return;
+    if (!isStart || timer <= 0) {
+      return;
+    }
+
     const id = setTimeout(() => setTimer((t) => Math.max(0, t - 1)), 1000);
     return () => clearTimeout(id);
   }, [timer, isStart]);
-
-  // useEffect(() => {
-  //   if (timer === 0) {
-  //     setCurrentIndex(prev => prev + 1);
-  //   }
-  // }, [timer])
 
   return (
     <>
