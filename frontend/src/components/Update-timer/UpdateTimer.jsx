@@ -7,6 +7,12 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
     const [labelInput, setLabelInput] = useState('');
 
     const changeOpenUpdate = () => {
+        if (!openUpdate) {
+            const currentTimer = timers[currentIndex];
+            setLabelInput(currentTimer.label);
+            setMinutesInput(currentTimer.minutes.toString());
+            setSecondsInput(currentTimer.seconds.toString());
+        }
         setOpenUpdate(prev => !prev);
     }
 
