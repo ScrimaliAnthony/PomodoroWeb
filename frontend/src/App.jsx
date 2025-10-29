@@ -14,9 +14,9 @@ export default function App() {
   const [selectedTime, setSelectedTime] = useState();
   const [isStart, setIsStart] = useState(false);
   const [timers, setTimers] = useState([
-    { id: 0, label: "Concentration", minutes: 25, seconds: 0 },
-    { id: 1, label: "Pause", minutes: 5, seconds: 0 },
-    { id: 2, label: "Concentration", minutes: 25, seconds: 0 }
+    { id: 0, label: "Concentration", minutes: 1, seconds: 0 },
+    { id: 1, label: "Pause", minutes: 1, seconds: 0 },
+    { id: 2, label: "Concentration", minutes: 1, seconds: 5 }
   ]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -28,13 +28,16 @@ export default function App() {
     <>
       <h1>Pomodoro</h1>
       <ListTimers timers={timers} currentIndex={currentIndex} />
-      <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1}/>
-      <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
-      <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} />
-      <AddTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex}/>
+      <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} />
+      <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} />
+      <br/>
+      <AddTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
       <UpdateTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} />
-      <DeleteTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex}  />
-      <Timer selectedTime={selectedTime} isStart={isStart}/>
+      <DeleteTimer timers={timers} setTimers={setTimers} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
+      <br/>
+      <br/>
+      <Timer selectedTime={selectedTime} isStart={isStart} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
+      <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
       <p>currentIndex : {currentIndex}</p>
       <p>currentId : {timers[currentIndex].id}</p>
     </>

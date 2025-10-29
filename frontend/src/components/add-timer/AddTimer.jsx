@@ -34,7 +34,7 @@ export default function AddTimer({ timers, setTimers, currentIndex, setCurrentIn
         }));
 
         setTimers(reindexedTimers);
-        setCurrentIndex(currentIndex + 1);
+        setCurrentIndex(prev => prev + 1);
 
         setLabelInput('');
         setMinutesInput('');

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { formatMS } from "../../utils/formatTime";
 
-export default function PomodoroTimer({ selectedTime, isStart }) {
+export default function PomodoroTimer({ selectedTime, isStart, currentIndex, setCurrentIndex }) {
   const [timer, setTimer] = useState(selectedTime);
 
   useEffect(() => {
@@ -14,9 +14,15 @@ export default function PomodoroTimer({ selectedTime, isStart }) {
     return () => clearTimeout(id);
   }, [timer, isStart]);
 
+  // useEffect(() => {
+  //   if (timer === 0) {
+  //     setCurrentIndex(prev => prev + 1);
+  //   }
+  // }, [timer])
+
   return (
     <>
-      <div>{timer > 0 ? formatMS(timer) : "Terminé !"}</div>
+      <div>{formatMS(timer)}</div>
     </>
   )
 }
