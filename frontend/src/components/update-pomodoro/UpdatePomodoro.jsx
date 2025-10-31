@@ -2,41 +2,39 @@ import { useState } from "react";
 import UpdateCycle from "../update-cycle/UpdateCycle";
 import UpdateTimer from "../update-timer/UpdateTimer";
 
-export default function UpdatePomodoro({ timers, setTimers, currentIndex, nbCycle, setNbCycle, maxCycle, setMaxCycle }) {
+export default function UpdatePomodoro({ timers, setTimers, nbCycle, setNbCycle, maxCycle, setMaxCycle }) {
     const [openUpdate, setOpenUpdate] = useState(false);
     const [nbCycleInput, setNbCycleInput] = useState(nbCycle);
-    const [minutesInput, setMinutesInput] = useState('');
-    const [secondsInput, setSecondsInput] = useState('');
+    const [timersInput, setTimersInput] = useState(
+        timers.map((timer, index) => ({
+            id: index,
+            minutes: timer.minutes,
+            seconds: timer.seconds
+        }))
+    );
 
     const changeOpenUpdate = () => {
-        if (!openUpdate) {
-            const currentTimer = timers[currentIndex];
-            setMinutesInput(currentTimer.minutes.toString());
-            setSecondsInput(currentTimer.seconds.toString());
-        }
         setOpenUpdate(prev => !prev);
     }
 
-    const updateTimer = () => {
-        if( minutesInput === '' || secondsInput === '' || nbCycleInput === '') {
+    const updatePomodoro = () => {
+        if( nbCycleInput === '') {
             changeOpenUpdate();
             return;
         }
 
-        // const newTimer = timers.map((timer, index) => {
-        //     if (index === currentIndex) {
-        //         return {
-        //             ...timer,
-        //             minutes: parseInt(minutesInput),
-        //             seconds: parseInt(secondsInput)
-        //         }
-        //     }
-        //     return timer;
-        // })
+        const newTimer = timers.map((timer, index) => {
+            return {
+                ...timer,
+                minutes: parseInt(timersInput[index].minutes),
+                seconds: parseInt(timersInput[index].seconds),
+            }
+        })
+
         setNbCycle(parseInt(nbCycleInput));
         setMaxCycle(parseInt(nbCycleInput));
 
-        // setTimers(newTimer);
+        setTimers(newTimer);
         changeOpenUpdate();
     }
 
@@ -47,14 +45,12 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex, nbCycl
                 <>
                     <h2>Update Pomodoro</h2>
                     <UpdateCycle nbCycleInput={nbCycleInput} setNbCycleInput={setNbCycleInput} maxCycle={maxCycle} />
-                    {/* <br />
-                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
-                    <br />
-                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
-                    <br />
-                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
-                    <br /> */}
-                    <button onClick={updateTimer}>Confirmer</button>
+                    {timers.map((timer, index) =>
+                        <div key={timer.id}>
+                            <UpdateTimer index={index} timersInput={timersInput} setTimersInput={setTimersInput} />
+                        </div>
+                    )}
+                    <button onClick={updatePomodoro}>Confirmer</button>
                 </>
             }
         </>

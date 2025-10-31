@@ -11,7 +11,7 @@ import Cycle from "./components/cycle/Cycle";
 import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
 
 export default function App() {
-  const [nbCycle, setNbCycle] = useState(2);
+  const [nbCycle, setNbCycle] = useState(3);
   const [maxCycle, setMaxCycle] = useState(nbCycle);
   
   const [selectedTime, setSelectedTime] = useState();
