@@ -1,9 +1,7 @@
-import { useState } from "react"
+export default function UpdateCycle({ nbCycleInput, setNbCycleInput, maxCycle }) {
 
-export default function UpdateCycle() {
-    const [inputCycle, setInputCycle] = useState('');
-
-    return <div>
-        <input type="number" min="0" placeholder="cycle" value={inputCycle} onChange={(e) => setInputCycle(e.target.value)}/> / 
+    return <div style={{display: "flex"}}>
+        <input type="number" min="0" placeholder="cycle" value={nbCycleInput} onChange={(e) => setNbCycleInput(e.target.value)}/>
+        <p style={{fontWeight: "bold"}}>/ {maxCycle}</p>
     </div>
 }

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function UpdateTimer({ minutesInput, setMinutesInput, secondsInput, setSecondsInput }) {
 
     return (

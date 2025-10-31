@@ -13,6 +13,7 @@ import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
 export default function App() {
   const [nbCycle, setNbCycle] = useState(2);
   const [maxCycle, setMaxCycle] = useState(nbCycle);
+  
   const [selectedTime, setSelectedTime] = useState();
   const [isStart, setIsStart] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,7 +32,7 @@ export default function App() {
   ])
 
   useEffect(() => {
-    setSelectedTime(toTotalSeconds(timers[currentIndex].minutes, timers[currentIndex].seconds))
+    setSelectedTime(toTotalSeconds(timers[currentIndex].minutes, timers[currentIndex].seconds));
   }, [timers[currentIndex].minutes, timers[currentIndex].seconds, currentIndex]);
 
   return (
@@ -42,7 +43,7 @@ export default function App() {
       <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
       <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
       <br/>
-      <UpdatePomodoro timers={timers} setTimers={setTimers} currentIndex={currentIndex} />
+      <UpdatePomodoro timers={timers} setTimers={setTimers} currentIndex={currentIndex} nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} setMaxCycle={setMaxCycle} />
       <br/>
       <br/>
       <Timer
@@ -50,12 +51,10 @@ export default function App() {
         setIsStart={setIsStart} currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex} timers={timers}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
-        nbCycle={nbCycle} setNbCycle={setNbCycle}
+        nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle}
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
       <ListTasks tasks={tasks} />
-      <p>currentIndex : {currentIndex}</p>
-      <p>currentId : {timers[currentIndex].id}</p>
     </>
   )
 }
