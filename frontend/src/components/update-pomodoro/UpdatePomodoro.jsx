@@ -1,15 +1,15 @@
 import { useState } from "react";
+import UpdateCycle from "../update-cycle/UpdateCycle";
+import UpdateTimer from "../update-timer/UpdateTimer";
 
 export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
     const [openUpdate, setOpenUpdate] = useState(false);
     const [minutesInput, setMinutesInput] = useState('');
     const [secondsInput, setSecondsInput] = useState('');
-    const [labelInput, setLabelInput] = useState('');
 
     const changeOpenUpdate = () => {
         if (!openUpdate) {
             const currentTimer = timers[currentIndex];
-            setLabelInput(currentTimer.label);
             setMinutesInput(currentTimer.minutes.toString());
             setSecondsInput(currentTimer.seconds.toString());
         }
@@ -17,7 +17,7 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
     }
 
     const updateTimer = () => {
-        if( labelInput === '' || minutesInput === '' || secondsInput === '') {
+        if( minutesInput === '' || secondsInput === '') {
             changeOpenUpdate();
             return;
         }
@@ -26,7 +26,6 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
             if (index === currentIndex) {
                 return {
                     ...timer,
-                    label: labelInput,
                     minutes: parseInt(minutesInput),
                     seconds: parseInt(secondsInput)
                 }
@@ -35,7 +34,6 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
         })
 
         setTimers(newTimer);
-        setLabelInput('');
         setSecondsInput('');
         setMinutesInput('');
         changeOpenUpdate();
@@ -47,9 +45,14 @@ export default function UpdatePomodoro({ timers, setTimers, currentIndex }) {
             {openUpdate && 
                 <>
                     <h2>Update Pomodoro</h2>
-                    <input type="text" placeholder="label" value={labelInput} onChange={(e) => setLabelInput(e.target.value)} />
-                    <input type="number" min="0" name="minutes" placeholder="minutes" value={minutesInput} onChange={(e) => setMinutesInput(e.target.value)}/>
-                    <input type="number" min="0" max="59" name="seconds" placeholder="seconds" value={secondsInput} onChange={(e) => setSecondsInput(e.target.value)}/>
+                    <UpdateCycle />
+                    <br />
+                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
+                    <br />
+                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
+                    <br />
+                    <UpdateTimer minutesInput={minutesInput} setMinutesInput={setMinutesInput} secondsInput={secondsInput} setSecondsInput={setSecondsInput} />
+                    <br />
                     <button onClick={updateTimer}>Confirmer</button>
                 </>
             }
