@@ -1,12 +1,12 @@
-export default function TimerNavigator({ isNext, setCurrentIndex, maxIndex, setIsStart, setIsTimerEnd }) {
+export default function TimerNavigator({ isNext, setCurrentTimer, maxIndex, setIsStart, setIsTimerEnd }) {
 
     const changeTimer = () => {
         if (isNext) {
-            setCurrentIndex(prev => 
+            setCurrentTimer(prev => 
                 maxIndex === prev ? prev : prev + 1
             );
         } else {
-            setCurrentIndex(prev => 
+            setCurrentTimer(prev => 
                 prev === 0 ? prev : prev - 1);
         }
         setIsStart(false);

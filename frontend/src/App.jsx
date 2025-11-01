@@ -18,7 +18,7 @@ export default function App() {
   
   const [selectedTime, setSelectedTime] = useState();
   const [isStart, setIsStart] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentTimer, setCurrentTimer] = useState(0);
   const [isTimerEnd, setIsTimerEnd] = useState(false);
 
   const [timers, setTimers] = useState([
@@ -40,24 +40,24 @@ export default function App() {
   ]);
 
   useEffect(() => {
-    setSelectedTime(toTotalSeconds(timers[currentIndex].minutes, timers[currentIndex].seconds));
-  }, [timers[currentIndex].minutes, timers[currentIndex].seconds, currentIndex]);
+    setSelectedTime(toTotalSeconds(timers[currentTimer].minutes, timers[currentTimer].seconds));
+  }, [timers[currentTimer].minutes, timers[currentTimer].seconds, currentTimer]);
 
   return (
     <>
       <h1>Pomodoro</h1>
       <Cycle nbCycle={nbCycle} maxCycle={maxCycle} />
-      <ListTimers timers={timers} currentIndex={currentIndex} />
-      <TimerNavigator isNext={false} setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
-      <TimerNavigator isNext={true}  setCurrentIndex={setCurrentIndex} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
+      <ListTimers timers={timers} currentTimer={currentTimer} />
+      <TimerNavigator isNext={false} setCurrentTimer={setCurrentTimer} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
+      <TimerNavigator isNext={true}  setCurrentTimer={setCurrentTimer} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
       <br/>
-      <UpdatePomodoro timers={timers} setTimers={setTimers} currentIndex={currentIndex} nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} setMaxCycle={setMaxCycle} />
+      <UpdatePomodoro timers={timers} setTimers={setTimers} nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} setMaxCycle={setMaxCycle} />
       <br/>
       <br/>
       <Timer
         selectedTime={selectedTime} isStart={isStart}
-        setIsStart={setIsStart} currentIndex={currentIndex}
-        setCurrentIndex={setCurrentIndex} timers={timers}
+        setIsStart={setIsStart} currentTimer={currentTimer}
+        setCurrentTimer={setCurrentTimer} timers={timers}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
         nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle}
       />
