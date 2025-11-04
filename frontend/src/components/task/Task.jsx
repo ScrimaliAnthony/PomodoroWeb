@@ -5,6 +5,7 @@ export default function Task({ task, index, changeCurrentTask }) {
         <span>{task.status}</span>
         <p>{task.desc}</p>
         <span>{task.actualCycle} / {task.nbCycle}</span>
+        <input type="checkbox" />
         <button>Update</button>
         <button>Delete</button>
     </div>

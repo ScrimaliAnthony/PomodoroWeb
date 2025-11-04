@@ -5,12 +5,10 @@ import ListTimers from "./components/list-timers/ListTimers";
 
 import { toTotalSeconds } from "./utils/formatTime";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ListTasks from "./components/list-tasks/ListTasks";
 import Cycle from "./components/cycle/Cycle";
 import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
-import Task from "./components/task/Task";
-import AddTask from "./components/add-task/AddTask";
 
 export default function App() {
   const [nbCycle, setNbCycle] = useState(3);

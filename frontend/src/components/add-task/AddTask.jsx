@@ -3,7 +3,7 @@ import { useState } from "react"
 export default function AddTask({ TASK_STATUS, tasks, setTasks }) {
     const [addTaskState, setAddTaskState] = useState(false);
     const [titleInput, setTitleInput] = useState("");
-    const [statusInput, setStatusInput] = useState("");
+    const [statusInput, setStatusInput] = useState(TASK_STATUS.TODO);
     const [descriptionInput, setDescriptionInput] = useState("");
     const [cycleInput, setCycleInput] = useState("");
 
@@ -12,6 +12,11 @@ export default function AddTask({ TASK_STATUS, tasks, setTasks }) {
     }
 
     const addTask= () => {
+        if(titleInput === "" || statusInput === "" || descriptionInput === "" || cycleInput === "") {
+            setAddTaskState(false);
+            return;
+        }
+
         const newTask = {
             id: tasks.lenght,
             title: titleInput,
