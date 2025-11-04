@@ -21,6 +21,8 @@ export default function App() {
   const [currentTimer, setCurrentTimer] = useState(0);
   const [isTimerEnd, setIsTimerEnd] = useState(false);
 
+  const [currentTask, setCurrentTask] = useState(0);
+
   const [timers, setTimers] = useState([
     { id: 0, label: "Concentration", minutes: 0, seconds: 2 },
     { id: 1, label: "Pause", minutes: 0, seconds: 2 },
@@ -35,7 +37,7 @@ export default function App() {
 
   const [tasks, setTasks] = useState([
     { id: 0, title: "My first Task", status: TASK_STATUS.TODO, desc: "Add my today tasks to the list", actualCycle: 0, nbCycle: 1 },
-    { id: 1, title: "My second Task", status: TASK_STATUS.IN_PROGRESS, desc: "Add a task to the cycle", actualCycle: 0, nbCycle: 2 },
+    { id: 1, title: "My second Task", status: TASK_STATUS.TODO, desc: "Add a task to the cycle", actualCycle: 0, nbCycle: 2 },
     { id: 2, title: "My third Task", status: TASK_STATUS.DONE, desc: "Finish my today tasks", actualCycle: 0, nbCycle: 1 }
   ]);
 
@@ -62,13 +64,9 @@ export default function App() {
         nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle}
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
-      {/* <ListTasks tasks={tasks} /> */}
-      {tasks.map((task, index) => 
-        <React.Fragment key={index} >
-          <Task task={task} index={index} TASK_STATUS={TASK_STATUS} />
-        </React.Fragment>
-      )}
-      <AddTask TASK_STATUS={TASK_STATUS} tasks={tasks} setTasks={setTasks} />
+
+      <ListTasks tasks={tasks} setTasks={setTasks} TASK_STATUS={TASK_STATUS} currentTask={currentTask} setCurrentTask={setCurrentTask} />
+
     </>
   )
 }

@@ -1,11 +1,6 @@
-export default function Task({ task, index, TASK_STATUS }) {
+export default function Task({ task, index, changeCurrentTask }) {
 
-    const handleClick = () => {
-        // task.TASK_STATUS.IN_PROGRESS;
-    }
-
-
-    return <div onClick={handleClick} style={{cursor: "pointer", border: "1px solid black"}}>
+    return <div onClick={() => changeCurrentTask(index)} style={{cursor: "pointer", border: "1px solid black" }}>
         <h2>{task.title}</h2>
         <span>{task.status}</span>
         <p>{task.desc}</p>
