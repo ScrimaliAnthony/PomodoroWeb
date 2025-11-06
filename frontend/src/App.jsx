@@ -36,12 +36,16 @@ export default function App() {
   const [tasks, setTasks] = useState([
     { id: 0, title: "My first Task", status: TASK_STATUS.TODO, desc: "Add my today tasks to the list", actualCycle: 0, nbCycle: 1 },
     { id: 1, title: "My second Task", status: TASK_STATUS.TODO, desc: "Add a task to the cycle", actualCycle: 0, nbCycle: 2 },
-    { id: 2, title: "My third Task", status: TASK_STATUS.DONE, desc: "Finish my today tasks", actualCycle: 0, nbCycle: 1 }
+    { id: 2, title: "My third Task", status: TASK_STATUS.DONE, desc: "Finish my today tasks", actualCycle: 1, nbCycle: 1 }
   ]);
 
   useEffect(() => {
     setSelectedTime(toTotalSeconds(timers[currentTimer].minutes, timers[currentTimer].seconds));
   }, [timers[currentTimer].minutes, timers[currentTimer].seconds, currentTimer]);
+
+  const progressInTask = () => {
+    alert("coucou");
+  }
 
   return (
     <>
@@ -59,7 +63,7 @@ export default function App() {
         setIsStart={setIsStart} currentTimer={currentTimer}
         setCurrentTimer={setCurrentTimer} timers={timers}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
-        nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle}
+        nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} progressInTask={progressInTask}
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
 
