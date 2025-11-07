@@ -1,15 +1,16 @@
-import Timer from "./components/timer/Timer";
-import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
-import TimerNavigator from "./components/timer-navigator/TimerNavigator";
-import ListTimers from "./components/list-timers/ListTimers";
+import { useEffect, useState, useReducer, useRef } from "react";
 import { initialTasks, tasksReducer, TASK_STATUS } from "./reducers/tasks";
-
 import { toTotalSeconds } from "./utils/formatTime";
 
-import { useEffect, useState, useReducer } from "react";
-import ListTasks from "./components/list-tasks/ListTasks";
+import ListTimers from "./components/list-timers/ListTimers";
 import Cycle from "./components/cycle/Cycle";
 import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
+import TimerNavigator from "./components/timer-navigator/TimerNavigator";
+
+import Timer from "./components/timer/Timer";
+import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
+
+import ListTasks from "./components/list-tasks/ListTasks";
 
 export default function App() {
   const [nbCycle, setNbCycle] = useState(3);
@@ -22,6 +23,7 @@ export default function App() {
 
   const [currentTask, setCurrentTask] = useState(0);
   const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTasks);
+
 
   const [timers, setTimers] = useState([
     { id: 0, label: "Concentration", minutes: 0, seconds: 2 },
@@ -59,7 +61,6 @@ export default function App() {
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
 
       <ListTasks tasks={tasks} dispatchTasks={dispatchTasks} TASK_STATUS={TASK_STATUS} currentTask={currentTask} setCurrentTask={setCurrentTask} />
-
     </>
   )
 }

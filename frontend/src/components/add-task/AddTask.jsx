@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function AddTask({ TASK_STATUS, tasks, onTaskAdd }) {
+export default function AddTask({ TASK_STATUS, onTaskAdd }) {
     const [addTaskState, setAddTaskState] = useState(false);
     const [titleInput, setTitleInput] = useState("");
     const [statusInput, setStatusInput] = useState(TASK_STATUS.TODO);
@@ -12,7 +12,7 @@ export default function AddTask({ TASK_STATUS, tasks, onTaskAdd }) {
     }
 
     const handleAddClick = () => {
-        onTaskAdd(tasks, titleInput, statusInput, descriptionInput, cycleInput);
+        onTaskAdd(titleInput, statusInput, descriptionInput, cycleInput);
 
         setTitleInput("");
         setStatusInput(TASK_STATUS.TODO);

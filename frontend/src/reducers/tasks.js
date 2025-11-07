@@ -61,15 +61,14 @@ export function tasksReducer(state, action) {
         }
 
         case "add": {
-            const { tasks, titleInput, statusInput, descriptionInput, cycleInput } = action;
+            const { titleInput, statusInput, descriptionInput, cycleInput, id } = action;
 
             if(titleInput === "" || statusInput === "" || descriptionInput === "" || cycleInput === "") {
-                setAddTaskState(false);
-                return;
+                return state;
             }
 
             const newTask = {
-                id: tasks.lenght,
+                id,
                 title: titleInput,
                 status: statusInput,
                 desc: descriptionInput,
@@ -78,8 +77,7 @@ export function tasksReducer(state, action) {
                 isDone: false
             };
 
-            const newTaskList = [...tasks, newTask];
-            return newTaskList;
+            return [...state, newTask];
         }
 
         case "delete": {
