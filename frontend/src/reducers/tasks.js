@@ -82,6 +82,14 @@ export function tasksReducer(state, action) {
             return newTaskList;
         }
 
+        case "delete": {
+            const { id } = action;
+
+            const newTasks = state.filter(task => task.id !== id);
+            console.log(newTasks)
+            return newTasks;
+        }
+
         default:
             return state;
     }

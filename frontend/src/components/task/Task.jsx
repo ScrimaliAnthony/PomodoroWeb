@@ -1,10 +1,14 @@
-export default function Task({ task, index, onTaskSelect, onCheckBoxClick }) {
+export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDeleteTask }) {
     const handleTaskClick = () => {
         onTaskSelect(index);
     }
 
     const handleCheckBoxClick = (e) => {
         onCheckBoxClick(index, e.target.checked);
+    }
+
+    const handleDeleteClick = () => {
+        onDeleteTask(task.id);
     }
     
     return (
@@ -18,7 +22,7 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick }) {
             <div>
                 <input type="checkbox" checked={task.isDone} onChange={handleCheckBoxClick} />
                 <button>Update</button>
-                <button>Delete</button>
+                <button onClick={handleDeleteClick}>Delete</button>
             </div>
         </div>
     )

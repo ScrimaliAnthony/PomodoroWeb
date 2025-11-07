@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AddTask from "../add-task/AddTask";
 import Task from "../task/Task";
 
@@ -17,10 +17,14 @@ export default function ListTasks({ tasks, dispatchTasks, TASK_STATUS, setCurren
         dispatchTasks({ type: "add", tasks, titleInput, statusInput, descriptionInput, cycleInput });
     }
 
+    const handleTaskDelete = (id) => {
+        dispatchTasks({ type: "delete", id });
+    }
+
     return <>
         {tasks.map((task, index) => 
-            <React.Fragment key={index} >
-                <Task task={task} index={index} onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} />
+            <React.Fragment key={task.id} >
+                <Task task={task} index={index} onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} onDeleteTask={handleTaskDelete}/>
             </React.Fragment>
         )}
         <AddTask TASK_STATUS={TASK_STATUS} tasks={tasks} onTaskAdd={handleTaskAdd} /> 
