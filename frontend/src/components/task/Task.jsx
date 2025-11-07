@@ -11,7 +11,6 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDel
     }
 
     const handleCheckBoxClick = (e) => {
-        setCycleInput(task.nbCycle);
         onCheckBoxClick(index, e.target.checked);
     }
 

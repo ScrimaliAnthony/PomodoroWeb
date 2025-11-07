@@ -30,7 +30,6 @@ export default function AddTask({ TASK_STATUS, onTaskAdd }) {
                     <select id="status" onChange={(e) => setStatusInput(e.target.value)} >
                         <option value={TASK_STATUS.TODO}>To Do</option>
                         <option value={TASK_STATUS.IN_PROGRESS}>In Progress</option>
-                        <option value={TASK_STATUS.DONE}>Done</option>
                     </select>
                     <input type="text" name="Description" placeholder="Description" onChange={(e) => setDescriptionInput(e.target.value)} />
                     <input type="number" name="cycle" placeholder="Number of Cycle to finish" onChange={(e) => setCycleInput(e.target.value)} />
