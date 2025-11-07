@@ -2,10 +2,11 @@ import Timer from "./components/timer/Timer";
 import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
 import TimerNavigator from "./components/timer-navigator/TimerNavigator";
 import ListTimers from "./components/list-timers/ListTimers";
+import { initialTasks, tasksReducer, TASK_STATUS } from "./reducers/tasks";
 
 import { toTotalSeconds } from "./utils/formatTime";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import ListTasks from "./components/list-tasks/ListTasks";
 import Cycle from "./components/cycle/Cycle";
 import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
@@ -20,6 +21,7 @@ export default function App() {
   const [isTimerEnd, setIsTimerEnd] = useState(false);
 
   const [currentTask, setCurrentTask] = useState(0);
+  const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTasks);
 
   const [timers, setTimers] = useState([
     { id: 0, label: "Concentration", minutes: 0, seconds: 2 },
@@ -27,17 +29,6 @@ export default function App() {
     { id: 2, label: "Long Pause", minutes: 0, seconds: 2 }
   ]);
 
-  const TASK_STATUS = {
-    TODO: "To Do",
-    IN_PROGRESS: "In Progress",
-    DONE: "Done"
-  };
-
-  const [tasks, setTasks] = useState([
-    { id: 0, title: "My first Task", status: TASK_STATUS.TODO, desc: "Add my today tasks to the list", actualCycle: 0, nbCycle: 1, isDone: false },
-    { id: 1, title: "My second Task", status: TASK_STATUS.TODO, desc: "Add a task to the cycle", actualCycle: 0, nbCycle: 2, isDone: false },
-    { id: 2, title: "My third Task", status: TASK_STATUS.DONE, desc: "Finish my today tasks", actualCycle: 1, nbCycle: 1, isDone: true }
-  ]);
 
   useEffect(() => {
     setSelectedTime(toTotalSeconds(timers[currentTimer].minutes, timers[currentTimer].seconds));
@@ -67,7 +58,7 @@ export default function App() {
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
 
-      <ListTasks tasks={tasks} setTasks={setTasks} TASK_STATUS={TASK_STATUS} currentTask={currentTask} setCurrentTask={setCurrentTask} />
+      <ListTasks tasks={tasks} dispatchTasks={dispatchTasks} TASK_STATUS={TASK_STATUS} currentTask={currentTask} setCurrentTask={setCurrentTask} />
 
     </>
   )
