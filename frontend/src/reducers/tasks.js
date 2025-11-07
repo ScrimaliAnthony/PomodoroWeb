@@ -67,13 +67,15 @@ export function tasksReducer(state, action) {
                 return state;
             }
 
+            const newNbCycle = Number(cycleInput);
+
             const newTask = {
                 id,
                 title: titleInput,
                 status: statusInput,
                 desc: descriptionInput,
                 actualCycle: 0,
-                nbCycle: cycleInput,
+                nbCycle: newNbCycle,
                 isDone: false
             };
 
@@ -84,8 +86,38 @@ export function tasksReducer(state, action) {
             const { id } = action;
 
             const newTasks = state.filter(task => task.id !== id);
-            console.log(newTasks)
             return newTasks;
+        }
+
+        case "update": {
+            const { titleInput, descriptionInput, cycleInput, id } = action;
+
+            return state.map((task) => {
+                if (id !== task.id) {
+                    return task;
+                }
+                
+                const newNbCycle = Number(cycleInput);
+                let newIsDone = false;
+                let newActualCycle = 0;
+
+                if (task.actualCycle > newNbCycle) {
+                    newIsDone = true;
+                    newActualCycle = newNbCycle;
+                } else if (task.actualCycle === newNbCycle) {
+                    newIsDone = true;
+                }
+
+
+                return {
+                    ...task,
+                    title: titleInput,
+                    desc: descriptionInput,
+                    actualCycle: newActualCycle,
+                    nbCycle: newNbCycle,
+                    isDone: newIsDone
+                }
+            })
         }
 
         default:

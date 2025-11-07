@@ -26,10 +26,14 @@ export default function ListTasks({ tasks, dispatchTasks, TASK_STATUS, setCurren
         dispatchTasks({ type: "delete", id });
     }
 
+    const handleTaskUpdate = (titleInput, descriptionInput, cycleInput, id) => {
+        dispatchTasks({ type: "update", titleInput, descriptionInput, cycleInput, id });
+    }
+
     return <>
         {tasks.map((task, index) => 
             <React.Fragment key={task.id} >
-                <Task task={task} index={index} onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} onDeleteTask={handleTaskDelete}/>
+                <Task task={task} index={index} onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} onDeleteTask={handleTaskDelete} onUpdateTask={handleTaskUpdate} />
             </React.Fragment>
         )}
         <AddTask TASK_STATUS={TASK_STATUS} onTaskAdd={handleTaskAdd} /> 
