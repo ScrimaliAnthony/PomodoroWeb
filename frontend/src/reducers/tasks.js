@@ -142,20 +142,30 @@ export function tasksReducer(state, action) {
                         isDone: newIsDone
                     }
                 }
+
+                if (isNewCurrentTask && task.status === TASK_STATUS.TODO) {
+                    isNewCurrentTask = false;
+                    return {
+                        ...task,
+                        status: TASK_STATUS.IN_PROGRESS
+                    }
+                }
                 return task;
             });
 
             if (isNewCurrentTask) {
-                newTasks = newTasks.map((task) => {
+                return newTasks.map((task) => {
                     if (task.status === TASK_STATUS.TODO) {
-                        
+                        isNewCurrentTask = false;
+                        return {
+                            ...task,
+                            status: TASK_STATUS.IN_PROGRESS
+                        }
                     }
+                    return task;
                 })
             }
-        }
-
-        case "nextTask": {
-
+            return newTasks;
         }
 
         default:
