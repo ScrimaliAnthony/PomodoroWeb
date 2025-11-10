@@ -120,6 +120,44 @@ export function tasksReducer(state, action) {
             })
         }
 
+        case "nextCycle": {
+            let isNewCurrentTask = false;
+
+            let newTasks =  state.map((task) => {
+                if (task.status === TASK_STATUS.IN_PROGRESS) {
+                    const nextCycle = task.actualCycle + 1;
+                    let newIsDone = false;
+                    let newStatus = TASK_STATUS.IN_PROGRESS;
+
+                    if (nextCycle === task.nbCycle) {
+                        newIsDone = true;
+                        newStatus = TASK_STATUS.DONE;
+                        isNewCurrentTask = true;
+                    }
+
+                    return {
+                        ...task,
+                        status: newStatus,
+                        actualCycle: nextCycle,
+                        isDone: newIsDone
+                    }
+                }
+                return task;
+            });
+
+            if (isNewCurrentTask) {
+                newTasks = newTasks.map((task) => {
+                    if (task.status === TASK_STATUS.TODO) {
+                        
+                    }
+                })
+            }
+        }
+
+        case "nextTask": {
+
+        }
+
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useRef } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { initialTasks, tasksReducer, TASK_STATUS } from "./reducers/tasks";
 import { toTotalSeconds } from "./utils/formatTime";
 
@@ -36,8 +36,8 @@ export default function App() {
     setSelectedTime(toTotalSeconds(timers[currentTimer].minutes, timers[currentTimer].seconds));
   }, [timers[currentTimer].minutes, timers[currentTimer].seconds, currentTimer]);
 
-  const progressInTask = () => {
-    alert("coucou");
+  const handleCycle = () => {
+    dispatchTasks({ type: "nextCycle" });
   }
 
   return (
@@ -56,7 +56,7 @@ export default function App() {
         setIsStart={setIsStart} currentTimer={currentTimer}
         setCurrentTimer={setCurrentTimer} timers={timers}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
-        nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} progressInTask={progressInTask}
+        nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} onNextCycle={handleCycle}
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
 
