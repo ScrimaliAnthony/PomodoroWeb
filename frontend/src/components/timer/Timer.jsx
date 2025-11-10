@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { formatMS } from "../../utils/formatTime";
 
-export default function PomodoroTimer({ selectedTime, isStart, currentIndex, setCurrentIndex, nbCycle, setNbCycle, maxCycle }) {
+export default function PomodoroTimer({ selectedTime, isStart, currentTimer, setCurrentTimer, nbCycle, setNbCycle, maxCycle, onNextCycle }) {
   const [timer, setTimer] = useState(selectedTime);
 
   useEffect(() => {
     setTimer(selectedTime);
-  }, [selectedTime, currentIndex]);
+  }, [selectedTime, currentTimer]);
 
   useEffect(() => {
     if (!isStart || timer <= 0) {
@@ -22,26 +22,27 @@ export default function PomodoroTimer({ selectedTime, isStart, currentIndex, set
       return;
     }
 
-    switch (currentIndex) {
+    switch (currentTimer) {
       case 0:
         if (nbCycle > 1) {
-          setCurrentIndex(1);
+          setCurrentTimer(1);
         } else {
-          setCurrentIndex(2);
+          setCurrentTimer(2);
         }
         setNbCycle(prev => prev - 1);
+        onNextCycle();
         break;
 
       case 1:
         if (nbCycle > 0) {
-          setCurrentIndex(0);
+          setCurrentTimer(0);
         } else {
-          setCurrentIndex(prev => prev + 1);
+          setCurrentTimer(prev => prev + 1);
         }
         break;
 
       case 2:
-        setCurrentIndex(0);
+        setCurrentTimer(0);
         setNbCycle(maxCycle);
         break;
 
