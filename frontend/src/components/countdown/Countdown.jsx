@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { formatMS } from "../../utils/formatTime";
+import StartPauseButton from "../start-pause-button/StartPauseButton";
 
-export default function PomodoroTimer({ selectedTime, isStart, currentTimer, setCurrentTimer, nbCycle, setNbCycle, maxCycle, onNextCycle }) {
+export default function Countdown({ selectedTime, isStart, setIsStart, currentTimer, setCurrentTimer, nbCycle, setNbCycle, maxCycle, onNextCycle }) {
   const [timer, setTimer] = useState(selectedTime);
 
   useEffect(() => {
@@ -54,6 +55,7 @@ export default function PomodoroTimer({ selectedTime, isStart, currentTimer, set
   return (
     <>
       <div>{formatMS(timer)}</div>
+      <StartPauseButton isStart={isStart} setIsStart={setIsStart} />
     </>
   )
 }
