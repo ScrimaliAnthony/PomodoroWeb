@@ -21,7 +21,9 @@ export default function Pomodoro({ nbCycle, maxCycle, currentPhase, setCurrentPh
     }
 
     const handleUpdateMinutes = (e) => {
-
+        setPhasesInput(prev => {
+            
+        })
     }
 
     // const handleUpdatePomodoro = () => {
