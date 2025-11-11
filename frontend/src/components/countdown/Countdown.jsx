@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { formatMS } from "../../utils/formatTime";
 import StartPauseButton from "../start-pause-button/StartPauseButton";
 
-export default function Countdown({ selectedTime, isStart, setIsStart, currentTimer, setCurrentTimer, nbCycle, setNbCycle, maxCycle, onNextCycle }) {
+export default function Countdown({ selectedTime, isStart, setIsStart, currentPhase, setCurrentPhase, nbCycle, setNbCycle, maxCycle, onNextCycle }) {
   const [timer, setTimer] = useState(selectedTime);
 
   useEffect(() => {
     setTimer(selectedTime);
-  }, [selectedTime, currentTimer]);
+  }, [selectedTime, currentPhase]);
 
   useEffect(() => {
     if (!isStart || timer <= 0) {
@@ -23,12 +23,12 @@ export default function Countdown({ selectedTime, isStart, setIsStart, currentTi
       return;
     }
 
-    switch (currentTimer) {
+    switch (currentPhase) {
       case 0:
         if (nbCycle > 1) {
-          setCurrentTimer(1);
+          setCurrentPhase(1);
         } else {
-          setCurrentTimer(2);
+          setCurrentPhase(2);
         }
         setNbCycle(prev => prev - 1);
         onNextCycle();
@@ -36,14 +36,14 @@ export default function Countdown({ selectedTime, isStart, setIsStart, currentTi
 
       case 1:
         if (nbCycle > 0) {
-          setCurrentTimer(0);
+          setCurrentPhase(0);
         } else {
-          setCurrentTimer(prev => prev + 1);
+          setCurrentPhase(prev => prev + 1);
         }
         break;
 
       case 2:
-        setCurrentTimer(0);
+        setCurrentPhase(0);
         setNbCycle(maxCycle);
         break;
 

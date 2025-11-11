@@ -7,21 +7,15 @@ import TaskList from "./components/task-List/TaskList";
 import CountDown from "./components/countdown/Countdown";
 import { toTotalSeconds } from "./utils/formatTime";
 
-import ListTimers from "./components/list-timers/ListTimers";
-import Cycle from "./components/cycle/Cycle";
-import UpdatePomodoro from "./components/update-pomodoro/UpdatePomodoro";
-import TimerNavigator from "./components/timer-navigator/TimerNavigator";
+import Pomodoro from "./components/pomodoro/Pomodoro";
+
+import { initialPhases } from "./data/pomodoro";
 
 export default function App() {
-  const [timers, setTimers] = useState([
-    { id: 0, label: "Concentration", minutes: 0, seconds: 2 },
-    { id: 1, label: "Pause", minutes: 0, seconds: 2 },
-    { id: 2, label: "Long Pause", minutes: 0, seconds: 2 }
-  ]);
-  
+
   const [nbCycle, setNbCycle] = useState(3);
   const [maxCycle, setMaxCycle] = useState(nbCycle);
-  const [currentTimer, setCurrentTimer] = useState(0);
+  const [currentPhase, setCurrentPhase] = useState(0);
   
   const [selectedTime, setSelectedTime] = useState();
   const [isStart, setIsStart] = useState(false);
@@ -31,8 +25,8 @@ export default function App() {
   const nextTaskIdRef = useRef(tasks.length - 1);
 
   useEffect(() => {
-    setSelectedTime(toTotalSeconds(timers[currentTimer].minutes, timers[currentTimer].seconds));
-  }, [timers[currentTimer].minutes, timers[currentTimer].seconds, currentTimer]);
+    setSelectedTime(toTotalSeconds(initialPhases[currentPhase].minutes, initialPhases[currentPhase].seconds));
+  }, [initialPhases[currentPhase].minutes, initialPhases[currentPhase].seconds, currentPhase]);
 
   const handleCycle = () => {
     dispatchTasks({ type: "nextCycle" });
@@ -48,18 +42,16 @@ export default function App() {
 
   return (
     <>
-      <h1>Pomodoro</h1>
-      <Cycle nbCycle={nbCycle} maxCycle={maxCycle} />
-      <ListTimers timers={timers} currentTimer={currentTimer} />
-      <TimerNavigator isNext={false} setCurrentTimer={setCurrentTimer} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
-      <TimerNavigator isNext={true}  setCurrentTimer={setCurrentTimer} maxIndex={timers.length - 1} setIsStart={setIsStart} setIsTimerEnd={setIsTimerEnd}/>
-      <br/>
-      <UpdatePomodoro timers={timers} setTimers={setTimers} nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} setMaxCycle={setMaxCycle} />
+      <Pomodoro
+        nbCycle={nbCycle} maxCycle={maxCycle} currentPhase={currentPhase} 
+        setCurrentPhase={setCurrentPhase} setNbCycle={setNbCycle}
+        setMaxCycle={setMaxCycle}
+      />
 
       <CountDown
         selectedTime={selectedTime} isStart={isStart}
-        setIsStart={setIsStart} currentTimer={currentTimer}
-        setCurrentTimer={setCurrentTimer} timers={timers}
+        setIsStart={setIsStart} currentPhase={currentPhase}
+        setCurrentPhase={setCurrentPhase}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
         nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} onNextCycle={handleCycle}
       />
