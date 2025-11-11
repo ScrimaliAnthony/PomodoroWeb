@@ -39,8 +39,7 @@ export default function App() {
   }
 
   const handleTaskAdd = (titleInput, statusInput, descriptionInput, cycleInput) => {
-      const newId = getNextTaskId();
-      dispatchTasks({ type: "add", id: newId, titleInput, statusInput, descriptionInput, cycleInput });
+      dispatchTasks({ type: "add", id: getNextTaskId(), titleInput, statusInput, descriptionInput, cycleInput });
   }
 
   function getNextTaskId() {
