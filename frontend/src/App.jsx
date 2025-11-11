@@ -1,5 +1,9 @@
-import { useEffect, useState, useReducer } from "react";
-import { initialTasks, tasksReducer, TASK_STATUS } from "./reducers/tasks";
+import { useEffect, useState, useReducer, useRef } from "react";
+
+import { tasksReducer } from "./reducers/tasks";
+import { initialTasks } from "./data/tasks";
+import TaskList from "./components/task-List/TaskList";
+
 import { toTotalSeconds } from "./utils/formatTime";
 
 import ListTimers from "./components/list-timers/ListTimers";
@@ -10,7 +14,6 @@ import TimerNavigator from "./components/timer-navigator/TimerNavigator";
 import Timer from "./components/timer/Timer";
 import StartPauseTimer from "./components/start-pause-timer/StartPauseTimer";
 
-import ListTasks from "./components/list-tasks/ListTasks";
 
 export default function App() {
   const [nbCycle, setNbCycle] = useState(3);
@@ -21,9 +24,8 @@ export default function App() {
   const [currentTimer, setCurrentTimer] = useState(0);
   const [isTimerEnd, setIsTimerEnd] = useState(false);
 
-  const [currentTask, setCurrentTask] = useState(0);
   const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTasks);
-
+  const nextTaskIdRef = useRef(tasks.length - 1);
 
   const [timers, setTimers] = useState([
     { id: 0, label: "Concentration", minutes: 0, seconds: 2 },
@@ -38,6 +40,15 @@ export default function App() {
 
   const handleCycle = () => {
     dispatchTasks({ type: "nextCycle" });
+  }
+
+  const handleTaskAdd = (titleInput, statusInput, descriptionInput, cycleInput) => {
+      const newId = getNextTaskId();
+      dispatchTasks({ type: "add", id: newId, titleInput, statusInput, descriptionInput, cycleInput });
+  }
+
+  function getNextTaskId() {
+    return nextTaskIdRef.current += 1;
   }
 
   return (
@@ -60,7 +71,7 @@ export default function App() {
       />
       <StartPauseTimer isStart={isStart} setIsStart={setIsStart} />
 
-      <ListTasks tasks={tasks} dispatchTasks={dispatchTasks} TASK_STATUS={TASK_STATUS} currentTask={currentTask} setCurrentTask={setCurrentTask} />
+      <TaskList tasks={tasks} dispatchTasks={dispatchTasks} onTaskAdd={handleTaskAdd} />
     </>
   )
 }
