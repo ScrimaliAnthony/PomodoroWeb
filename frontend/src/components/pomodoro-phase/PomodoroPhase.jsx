@@ -1,4 +1,6 @@
-export default function PomodoroPhase({ phase, currentPhase, displayFormat, onPhaseClick }) {
+import { displayFormat } from "../../utils/formatTime"
+
+export default function PomodoroPhase({ phase, currentPhase, onPhaseClick }) {
 
     const handlerClick = () => {
         onPhaseClick(phase.id);

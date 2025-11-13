@@ -1,4 +1,4 @@
-export default function PomodoroPhaseEdit({ phaseInput, onUpdateMinutes }) {
+export default function PomodoroPhaseEdit({ phase, phaseInput, onUpdateMinutes }) {
 
     const handlerInputMinutes = (e) => {
         onUpdateMinutes(e, phase);
