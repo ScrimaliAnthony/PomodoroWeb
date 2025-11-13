@@ -5,19 +5,20 @@ import PomodoroEdit from "../pomodoro-edit/PomodoroEdit";
 
 import { initialPhases } from "../../data/pomodoro"
 
-export default function Pomodoro({ nbCycle, maxCycle, currentPhase, setCurrentPhase, setNbCycle, setMaxCycle }) {
+export default function Pomodoro({ nbCycle, maxCycle, setNbCycle, setMaxCycle }) {
+    const [phases, setPhases] = useState(initialPhases);
     const [isEditMode, setIsEditMode] = useState(false);
 
-    const [phases, setPhases] = useState(initialPhases);
+    const handleEditMode = () => {
+        setIsEditMode(prev => !prev);
+    }
     
     return (
         <>
             {isEditMode ? 
                 <PomodoroEdit />    
                 :
-                <PomodoroDisplay
-                    nbCycle={nbCycle} maxCycle={maxCycle} phases={phases} currentPhase={currentPhase} setCurrentPhase={setCurrentPhase}
-                />
+                <PomodoroDisplay nbCycle={nbCycle} maxCycle={maxCycle} phases={phases} onClickUpdate={handleEditMode} />
             }
         </>
     )

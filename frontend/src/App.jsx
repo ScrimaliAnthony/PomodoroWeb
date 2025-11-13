@@ -47,7 +47,6 @@ export default function App() {
       {/* <CountDown
         selectedTime={selectedTime} isStart={isStart}
         setIsStart={setIsStart}
-        setCurrentPhase={setCurrentPhase}
         isTimerEnd={isTimerEnd} setIsTimerEnd={setIsTimerEnd}
         nbCycle={nbCycle} setNbCycle={setNbCycle} maxCycle={maxCycle} onNextCycle={handleCycle}
       /> */}
