@@ -16,7 +16,7 @@ export default function Pomodoro({ nbCycle, maxCycle, setNbCycle, setMaxCycle })
     return (
         <>
             {isEditMode ? 
-                <PomodoroEdit />    
+                <PomodoroEdit nbCycle={nbCycle} maxCycle={maxCycle} onClickUpdate={handleEditMode} />    
                 :
                 <PomodoroDisplay nbCycle={nbCycle} maxCycle={maxCycle} phases={phases} onClickUpdate={handleEditMode} />
             }
