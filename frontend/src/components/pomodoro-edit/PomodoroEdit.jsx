@@ -2,8 +2,10 @@ import { useRef, useContext } from "react";
 import PomodoroCycleEdit from "../pomodoro-cycle-edit/PomodoroCycleEdit";
 import PomodoroPhaseEdit from "../pomodoro-phase-edit/PomodoroPhaseEdit";
 import { CycleContext } from "../../context/CycleContext";
+import { PhaseContext } from "../../context/PhaseContext";
 
-export default function PomodoroEdit({ phases, onClickUpdate, onEdit }) {
+export default function PomodoroEdit({ onClickUpdate, onEdit }) {
+    const { phases } = useContext(PhaseContext);
     const { totalCycle } = useContext(CycleContext);
     const totalCycleRef = useRef(totalCycle);
 

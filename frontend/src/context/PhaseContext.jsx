@@ -1,11 +1,13 @@
 import { createContext, useState } from "react";
+import { initialPhases } from "../data/pomodoro";
 
 export const PhaseContext = createContext(null);
 
-export function PhaseProvider({ initialPhase = 0, children }) {
-  const [currentPhase, setCurrentPhase] = useState(initialPhase);
+export function PhaseProvider({ initialCurrentPhase = 0, children }) {
+  const [phases, setPhases] = useState(initialPhases);
+  const [currentPhase, setCurrentPhase] = useState(initialCurrentPhase);
 
-  const value = { currentPhase, setCurrentPhase };
+  const value = { phases, setPhases, currentPhase, setCurrentPhase };
 
   return (
     <PhaseContext.Provider value={value}>

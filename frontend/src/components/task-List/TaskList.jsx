@@ -2,7 +2,7 @@ import { TASK_STATUS } from "../../constants/tasks";
 import AddTask from "../add-task/AddTask";
 import Task from "../task/Task";
 
-export default function ListTasks({ tasks, dispatchTasks, onTaskAdd }) {
+export default function TaskList({ tasks, dispatchTasks, onTaskAdd }) {
     
     const handleTaskSelect = (index) => {
         dispatchTasks({ type: "select", index });

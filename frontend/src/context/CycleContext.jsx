@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const CycleContext = createContext(null);
 
-export function CycleProvider({ initialCycle = 0, initialTotalCycle = 3, children }) {
+export function CycleProvider({ initialCycle = 1, initialTotalCycle = 3, children }) {
   const [cycle, setCycle] = useState(initialCycle);
   const [totalCycle, setTotalCycle] = useState(initialTotalCycle)
 

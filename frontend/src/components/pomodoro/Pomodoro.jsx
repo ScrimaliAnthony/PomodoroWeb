@@ -3,14 +3,13 @@ import { useState, useContext } from "react";
 import PomodoroDisplay from "../pomodoro-display/PomodoroDisplay";
 import PomodoroEdit from "../pomodoro-edit/PomodoroEdit";
 
-import { initialPhases } from "../../data/pomodoro"
-
+import { PhaseContext } from "../../context/PhaseContext";
 import { CycleContext } from "../../context/CycleContext";
 
 export default function Pomodoro() {
     const { setTotalCycle } = useContext(CycleContext);
+    const { phases, setPhases } = useContext(PhaseContext);
 
-    const [phases, setPhases] = useState(initialPhases);
     const [isEditMode, setIsEditMode] = useState(false);
 
     const handleEditMode = () => {
@@ -33,9 +32,9 @@ export default function Pomodoro() {
     return (
         <>
             {isEditMode ? 
-                <PomodoroEdit phases={phases} onClickUpdate={handleEditMode} onEdit={handleEditPomodoro} />    
+                <PomodoroEdit onClickUpdate={handleEditMode} onEdit={handleEditPomodoro} />    
                 :
-                <PomodoroDisplay phases={phases} onClickUpdate={handleEditMode} />
+                <PomodoroDisplay onClickUpdate={handleEditMode} />
             }
         </>
     )

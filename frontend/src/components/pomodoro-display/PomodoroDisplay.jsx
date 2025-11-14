@@ -1,7 +1,11 @@
 import PomodoroCycle from "../pomodoro-cycle/PomodoroCycle"
 import PomodoroPhase from "../pomodoro-phase/PomodoroPhase"
 
-export default function PomodoroDisplay({ phases, onClickUpdate }) {
+import { PhaseContext } from "../../context/PhaseContext"
+import { useContext } from "react"
+
+export default function PomodoroDisplay({ onClickUpdate }) {
+    const { phases } = useContext(PhaseContext);
     return (
         <>
             <h1>Pomodoro</h1>

@@ -1,8 +1,3 @@
-export default function StartPauseButton({ isStart, setIsStart }) {
-
-    const startOrStop = () => {
-        setIsStart(prev => !prev);
-    }
-
-    return <button onClick={startOrStop}>{isStart ? "Pause" : "Start"}</button>
+export default function StartPauseButton({ isStart, onClickStartOrStop }) {
+    return <button onClick={onClickStartOrStop}>{isStart ? "Pause" : "Start"}</button>
 }
