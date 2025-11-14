@@ -1,14 +1,10 @@
-export default function PomodoroPhaseEdit({ phase, phaseInput, onUpdateMinutes }) {
-
-    const handlerInputMinutes = (e) => {
-        onUpdateMinutes(e, phase);
-    }
+export default function PomodoroPhaseEdit({ phase, onUpdateMinutes, onUpdateSecond }) {
 
     return (
         <div>
-            <p>{phaseInput.label}
-                <input type="number" min="0" name="minutes" placeholder="minutes" value={phaseInput.minutes} onChange={(e) => handlerInputMinutes(Number(e.target.value))}/>
-                {/* <input type="number" min="0" max="59" name="seconds" placeholder="seconds" value={phaseInput.seconds} onChange={(e) => handlerPhaseInput(Number(e.target.value))}/> */}
+            <p>{phase.label}
+                <input type="number" min="0" max="59" name="minutes" placeholder="minutes" defaultValue={phase.minutes} onChange={(e) => onUpdateMinutes(e.target.valueAsNumber, phase.id)}/>
+                <input type="number" min="0" max="59" name="seconds" placeholder="seconds" defaultValue={phase.seconds} onChange={(e) => onUpdateSecond(e.target.valueAsNumber, phase.id)}/>
             </p>
         </div>
     )
