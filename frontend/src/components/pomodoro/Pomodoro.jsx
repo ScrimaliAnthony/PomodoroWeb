@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import PomodoroDisplay from "../pomodoro-display/PomodoroDisplay";
 import PomodoroEdit from "../pomodoro-edit/PomodoroEdit";
 
 import { initialPhases } from "../../data/pomodoro"
 
-export default function Pomodoro({ nbCycle, maxCycle, setMaxCycle }) {
+import { CycleContext } from "../../context/CycleContext";
+
+export default function Pomodoro() {
+    const { setTotalCycle } = useContext(CycleContext);
+
     const [phases, setPhases] = useState(initialPhases);
     const [isEditMode, setIsEditMode] = useState(false);
 
@@ -14,7 +18,7 @@ export default function Pomodoro({ nbCycle, maxCycle, setMaxCycle }) {
     }
 
     const handleEditPomodoro = (totalCycleRef, minuteRef, secondRef) => {
-        setMaxCycle(totalCycleRef.current);
+        setTotalCycle(totalCycleRef.current);
         const newPhases = phases.map((phase, id) => {
             return {
                 ...phase,
@@ -29,9 +33,9 @@ export default function Pomodoro({ nbCycle, maxCycle, setMaxCycle }) {
     return (
         <>
             {isEditMode ? 
-                <PomodoroEdit nbCycle={nbCycle} maxCycle={maxCycle} phases={phases} onClickUpdate={handleEditMode} onEdit={handleEditPomodoro} />    
+                <PomodoroEdit phases={phases} onClickUpdate={handleEditMode} onEdit={handleEditPomodoro} />    
                 :
-                <PomodoroDisplay nbCycle={nbCycle} maxCycle={maxCycle} phases={phases} onClickUpdate={handleEditMode} />
+                <PomodoroDisplay phases={phases} onClickUpdate={handleEditMode} />
             }
         </>
     )

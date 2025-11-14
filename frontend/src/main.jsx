@@ -2,11 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { PhaseProvider } from './context/PhaseContext.jsx';
+import { CycleProvider } from './context/CycleContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <PhaseProvider initialPhase={0} >
-      <App />
+      <CycleProvider initialCycle={0} initialTotalCycle={3}>
+        <App />
+      </CycleProvider>
     </PhaseProvider>
   </StrictMode>,
 )

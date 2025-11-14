@@ -14,8 +14,8 @@ import { initialPhases } from "./data/pomodoro";
 
 export default function App() {
   const { currentPhase } = useContext(PhaseContext);
-  const [nbCycle, setNbCycle] = useState(3);
-  const [maxCycle, setMaxCycle] = useState(nbCycle);
+  // const [nbCycle, setNbCycle] = useState(3);
+  // const [maxCycle, setMaxCycle] = useState(nbCycle);
   
   const [selectedTime, setSelectedTime] = useState();
   // const [isStart, setIsStart] = useState(false);
@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <>
-      <Pomodoro nbCycle={nbCycle} maxCycle={maxCycle} setNbCycle={setNbCycle} setMaxCycle={setMaxCycle} />
+      <Pomodoro />
 
       {/* <CountDown
         selectedTime={selectedTime} isStart={isStart}

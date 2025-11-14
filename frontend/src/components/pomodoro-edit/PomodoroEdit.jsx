@@ -1,9 +1,12 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import PomodoroCycleEdit from "../pomodoro-cycle-edit/PomodoroCycleEdit";
 import PomodoroPhaseEdit from "../pomodoro-phase-edit/PomodoroPhaseEdit";
+import { CycleContext } from "../../context/CycleContext";
 
-export default function PomodoroEdit({ nbCycle, maxCycle, phases, onClickUpdate, onEdit }) {
-    const totalCycleRef = useRef(maxCycle);
+export default function PomodoroEdit({ phases, onClickUpdate, onEdit }) {
+    const { totalCycle } = useContext(CycleContext);
+    const totalCycleRef = useRef(totalCycle);
+
     const minuteRef = useRef(phases.map(phase => phase.minutes));
     const secondRef = useRef(phases.map(phase => phase.seconds));
 
@@ -26,7 +29,7 @@ export default function PomodoroEdit({ nbCycle, maxCycle, phases, onClickUpdate,
     return (
         <>
             <h1>Edit Mode</h1>
-            <PomodoroCycleEdit nbCycle={nbCycle} maxCycle={maxCycle} onChangeTotalCycle={handleTotalCycleRef} />
+            <PomodoroCycleEdit onChangeTotalCycle={handleTotalCycleRef} />
             {phases.map(phase => 
                 <PomodoroPhaseEdit key={phase.id} phase={phase} onUpdateMinutes={handleMinuteRef} onUpdateSecond={handleSecondRef} />
             )}
