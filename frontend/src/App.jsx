@@ -10,6 +10,8 @@ import { toTotalSeconds } from "./utils/formatTime";
 import Pomodoro from "./components/pomodoro/Pomodoro";
 import { PhaseContext } from "./context/PhaseContext";
 
+import { useNotificationSound } from "./hooks/useNotificationSound";
+
 export default function App() {
     const { phases } = useContext(PhaseContext);
     const { currentPhase } = useContext(PhaseContext);
@@ -20,6 +22,8 @@ export default function App() {
 
     const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTasks);
     const nextTaskIdRef = useRef(tasks.length - 1);
+
+    const playNotification = useNotificationSound("end-of-task.mp3");
 
     useEffect(() => {
         setTimer(
@@ -41,6 +45,7 @@ export default function App() {
     }
 
     const handleCycle = () => {
+        playNotification();
         dispatchTasks({ type: "nextCycle" });
     }
 
