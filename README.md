@@ -53,7 +53,7 @@ erDiagram
     }
 
     users ||--o{ pomodoro_phases : "has"
-    users ||--|| pomodoro_settings : "has"
+    users ||--|| pomodoro_cycle : "has"
     users ||--o{ tasks : "has"
 ```
 
