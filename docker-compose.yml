@@ -60,6 +60,8 @@ services:
     networks:
       - backend
       - web
+    ports:
+      - "3000:3000" # Note pour plus tard: A supprimer pour la prod
 
   frontend:
     build:
