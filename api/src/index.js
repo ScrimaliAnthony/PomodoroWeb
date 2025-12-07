@@ -1,12 +1,22 @@
 import express from "express";
 import pool from "./config/database_pomodoro.js";
 import apiRouter from "./routes/index.js";
-
-const app = express();
-app.use(express.json());
+import cors from "cors";
 
 const PORT = process.env.API_PORT || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
+const FRONT_URL = process.env.FRONTEND_URL || "http://localhost";
+const FRONT_PORT = Number(process.env.FRONTEND_PORT) || 5173;
+
+const app = express();
+
+app.use(
+  cors({
+    origin: `${FRONT_URL}:${FRONT_PORT}`,
+  })
+);
+
+app.use(express.json());
 
 app.get("/api/health", async (_req, res) => {
   try {
