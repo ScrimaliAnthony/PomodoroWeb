@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
+import { get } from "../../api/client";
 
 export default function HealthCheck() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/health")
-      .then(async (res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
-        const json = await res.json();
+    get("/health")
+      .then((json) => {
         setData(json);
       })
       .catch((err) => {
@@ -22,9 +19,11 @@ export default function HealthCheck() {
   return (
     <div style={{ padding: "1rem", border: "1px solid #ccc", marginBottom: "1rem" }}>
       <h2>Health check backend</h2>
+
       {data && (
         <pre>{JSON.stringify(data, null, 2)}</pre>
       )}
+
       {error && (
         <p style={{ color: "red" }}>Error: {error}</p>
       )}
