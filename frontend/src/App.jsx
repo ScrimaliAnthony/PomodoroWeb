@@ -1,5 +1,7 @@
 import { useEffect, useState, useReducer, useRef, useContext } from "react";
 
+import HealthCheck from "./components/health-check/HealthCheck";
+
 import { tasksReducer } from "./reducers/tasks";
 import { initialTasks } from "./data/tasks";
 import TaskList from "./components/task-List/TaskList";
@@ -59,6 +61,7 @@ export default function App() {
 
     return (
         <>
+            <HealthCheck />
             <Pomodoro />
             <CountDown timer={timer} isStart={isStart} handleStartOrStop={handleStartOrStop} onNextCycle={handleCycle} />
             <TaskList tasks={tasks} dispatchTasks={dispatchTasks} onTaskAdd={handleTaskAdd} />
