@@ -1,70 +1,44 @@
-import { useEffect, useState, useReducer, useRef, useContext } from "react";
-
-import HealthCheck from "./components/health-check/HealthCheck";
-
-import { tasksReducer } from "./reducers/tasks";
-import { initialTasks } from "./data/tasks";
-import TaskList from "./components/task-List/TaskList";
-
-import CountDown from "./components/countdown/Countdown";
-import { toTotalSeconds } from "./utils/formatTime";
-
-import Pomodoro from "./components/pomodoro/Pomodoro";
-import { PhaseContext } from "./context/PhaseContext";
-
-import { useNotificationSound } from "./hooks/useNotificationSound";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import { useAuth } from "./context/AuthContext";
 
 export default function App() {
-    const { phases } = useContext(PhaseContext);
-    const { currentPhase } = useContext(PhaseContext);
+  const { user, logout } = useAuth();
 
-    const [timer, setTimer] = useState();
-    const [isStart, setIsStart] = useState(false);
-    const [isTimerEnd, setIsTimerEnd] = useState(false);
+  return (
+    <div>
+      <nav
+        style={{
+          display: "flex",
+          gap: "1rem"
+        }}
+      >
+        <Link to="/">Home</Link>
 
-    const [tasks, dispatchTasks] = useReducer(tasksReducer, initialTasks);
-    const nextTaskIdRef = useRef(tasks.length - 1);
+        {!user && (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
 
-    const playNotification = useNotificationSound("end-of-task.mp3");
+        {user && (
+          <>
+            <span>
+              Logged in as <strong>{user.username}</strong>
+            </span>
+            <button onClick={logout}>Logout</button>
+          </>
+        )}
+      </nav>
 
-    useEffect(() => {
-        setTimer(
-        toTotalSeconds(phases[currentPhase].minutes, phases[currentPhase].seconds)
-        );
-    }, [phases[currentPhase].minutes, phases[currentPhase].seconds, currentPhase]);
-
-    useEffect(() => {
-        if (!isStart || timer <= 0) {
-        return;
-        }
-
-        const id = setTimeout(() => setTimer((t) => Math.max(0, t - 1)), 1000);
-        return () => clearTimeout(id);
-    }, [timer, isStart]);
-
-    const handleStartOrStop = () => {
-        setIsStart(prev => !prev);
-    }
-
-    const handleCycle = () => {
-        playNotification();
-        dispatchTasks({ type: "nextCycle" });
-    }
-
-    const handleTaskAdd = (titleInput, statusInput, descriptionInput, cycleInput) => {
-        dispatchTasks({ type: "add", id: getNextTaskId(), titleInput, statusInput, descriptionInput, cycleInput });
-    }
-
-    function getNextTaskId() {
-        return nextTaskIdRef.current += 1;
-    }
-
-    return (
-        <>
-            <HealthCheck />
-            <Pomodoro />
-            <CountDown timer={timer} isStart={isStart} handleStartOrStop={handleStartOrStop} onNextCycle={handleCycle} />
-            <TaskList tasks={tasks} dispatchTasks={dispatchTasks} onTaskAdd={handleTaskAdd} />
-        </>
-    )
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </div>
+  );
 }
