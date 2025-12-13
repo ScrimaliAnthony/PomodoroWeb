@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import verifiedEntry from "../../utils/verifiedEntry.js"
+
 export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDeleteTask, onUpdateTask }) {
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
     const [titleInput, setTitleInput] = useState(task.title);
@@ -30,6 +32,11 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDel
 
         setIsOpenUpdate(prev => !prev);
     }
+
+    const handleCycleChange = (e) => {
+        const n = e.target.valueAsNumber;        // number ou NaN
+        setCycleInput(verifiedEntry(n, task.nbCycle));
+    };
     
     return (
         <div style={{cursor: "pointer", border: "1px solid black" }}>
@@ -58,7 +65,7 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDel
                             <input type="text" name="Description" placeholder="Description" value={descriptionInput} onChange={(e) => setDescriptionInput(e.target.value)} />
                         </p>
                         <span>{task.actualCycle} / 
-                            <input type="number" name="cycle" placeholder="Number of Cycle to finish" value={cycleInput} onChange={(e) => setCycleInput(e.target.value)} />
+                            <input type="number" min={0} name="cycle" placeholder="Number of Cycle to finish" value={cycleInput} onChange={handleCycleChange} />
                         </span>
                     </div>
                     <div>
