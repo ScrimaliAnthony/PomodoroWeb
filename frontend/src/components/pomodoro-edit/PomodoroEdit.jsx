@@ -4,6 +4,8 @@ import PomodoroPhaseEdit from "../pomodoro-phase-edit/PomodoroPhaseEdit";
 import { CycleContext } from "../../context/CycleContext";
 import { PhaseContext } from "../../context/PhaseContext";
 
+import verifiedEntry from "../../utils/verifiedEntry.js"
+
 export default function PomodoroEdit({ onClickUpdate, onEdit }) {
     const { phases } = useContext(PhaseContext);
     const { totalCycle } = useContext(CycleContext);
@@ -13,15 +15,15 @@ export default function PomodoroEdit({ onClickUpdate, onEdit }) {
     const secondRef = useRef(phases.map(phase => phase.seconds));
 
     const handleTotalCycleRef = (e) => {
-        totalCycleRef.current = e;
+        totalCycleRef.current = verifiedEntry(e, totalCycle);
     }
 
     const handleMinuteRef = (e, id) => {
-        minuteRef.current[id] = e;
+        minuteRef.current[id] = verifiedEntry(e, phases[id]?.minutes ?? 0);
     }
 
     const handleSecondRef = (e, id) => {
-        secondRef.current[id] = e;
+        secondRef.current[id] = verifiedEntry(e, phases[id]?.seconds ?? 0);
     }
 
     const handleUpdateClick = () => {
