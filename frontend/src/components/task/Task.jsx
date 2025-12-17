@@ -34,7 +34,7 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDel
     }
 
     const handleCycleChange = (e) => {
-        const n = e.target.valueAsNumber;        // number ou NaN
+        const n = e.target.valueAsNumber;
         setCycleInput(verifiedEntry(n, task.nbCycle));
     };
     

@@ -7,7 +7,7 @@ import { PhaseContext } from "../../context/PhaseContext";
 import { CycleContext } from "../../context/CycleContext";
 
 export default function Pomodoro() {
-    const { setTotalCycle } = useContext(CycleContext);
+    const { setCycle, setTotalCycle } = useContext(CycleContext);
     const { phases, setPhases } = useContext(PhaseContext);
 
     const [isEditMode, setIsEditMode] = useState(false);
@@ -16,7 +16,8 @@ export default function Pomodoro() {
         setIsEditMode(prev => !prev);
     }
 
-    const handleEditPomodoro = (totalCycleRef, minuteRef, secondRef) => {
+    const handleEditPomodoro = (cycleRef, totalCycleRef, minuteRef, secondRef) => {
+        setCycle(cycleRef.current);
         setTotalCycle(totalCycleRef.current);
         const newPhases = phases.map((phase, id) => {
             return {

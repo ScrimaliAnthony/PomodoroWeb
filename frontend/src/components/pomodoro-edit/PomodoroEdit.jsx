@@ -8,14 +8,18 @@ import verifiedEntry from "../../utils/verifiedEntry.js"
 
 export default function PomodoroEdit({ onClickUpdate, onEdit }) {
     const { phases } = useContext(PhaseContext);
-    const { totalCycle } = useContext(CycleContext);
+    const { cycle, totalCycle } = useContext(CycleContext);
     const totalCycleRef = useRef(totalCycle);
+    const cycleRef = useRef(cycle);
 
     const minuteRef = useRef(phases.map(phase => phase.minutes));
     const secondRef = useRef(phases.map(phase => phase.seconds));
 
     const handleTotalCycleRef = (e) => {
         totalCycleRef.current = verifiedEntry(e, totalCycle);
+        if(totalCycleRef.current < cycleRef.current) {
+            cycleRef.current = totalCycleRef.current;
+        }
     }
 
     const handleMinuteRef = (e, id) => {
@@ -27,7 +31,7 @@ export default function PomodoroEdit({ onClickUpdate, onEdit }) {
     }
 
     const handleUpdateClick = () => {
-        onEdit(totalCycleRef, minuteRef, secondRef);
+        onEdit(cycleRef, totalCycleRef, minuteRef, secondRef);
     }
 
     return (
