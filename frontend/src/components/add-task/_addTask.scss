@@ -1,0 +1,14 @@
+.addTask {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .addTask__container {
+        display: flex;
+        justify-content: start;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}

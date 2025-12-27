@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import verifiedEntry from "../../utils/verifiedEntry.js"
+
 export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDeleteTask, onUpdateTask }) {
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
     const [titleInput, setTitleInput] = useState(task.title);
@@ -30,41 +32,55 @@ export default function Task({ task, index, onTaskSelect, onCheckBoxClick, onDel
 
         setIsOpenUpdate(prev => !prev);
     }
+
+    const handleCycleChange = (e) => {
+        let newCycle = e.target.valueAsNumber;
+        setCycleInput(verifiedEntry(newCycle, task.nbCycle));
+    };
     
     return (
-        <div style={{cursor: "pointer", border: "1px solid black" }}>
+        <div className="task">
             {!isOpenUpdate ?
                 <>
                     <div onClick={handleTaskClick} >
-                        <h2>{task.title}</h2>
-                        <span>{task.status}</span>
-                        <p>{task.desc}</p>
-                        <span>{task.actualCycle} / {task.nbCycle}</span>
+                        <div className="task__section">
+                            <h2 className="task__title">{task.title}</h2>
+                            <span className="task__status">{task.status}</span>
+                        </div>
+                        <div className="task__section">
+                            <p className="task__description">{task.desc}</p>
+                            <span className="task__cycles">{task.actualCycle} / {task.nbCycle}</span>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" checked={task.isDone} onChange={handleCheckBoxClick} />
-                        <button onClick={handleIsOpenUpdate}>Update</button>
-                        <button onClick={handleDeleteClick}>Delete</button>
+                    <div className="task__section task__section--button">
+                        <input className="task__checkbox" type="checkbox" checked={task.isDone} onChange={handleCheckBoxClick} />
+                        <div className="task__buttons">
+                            <button className="task__button" onClick={handleIsOpenUpdate}>Update</button>
+                            <button className="task__button" onClick={handleDeleteClick}>Delete</button>
+                        </div>
                     </div>
                 </>
                 :
                 <>
                     <div>
-                        <h2>
-                            <input type="text" name="title" placeholder="new Task" value={titleInput} onChange={(e) => setTitleInput(e.target.value)} />
-                        </h2>
-                        <span>{task.status}</span>
-                        <p>
-                            <input type="text" name="Description" placeholder="Description" value={descriptionInput} onChange={(e) => setDescriptionInput(e.target.value)} />
-                        </p>
-                        <span>{task.actualCycle} / 
-                            <input type="number" name="cycle" placeholder="Number of Cycle to finish" value={cycleInput} onChange={(e) => setCycleInput(e.target.value)} />
-                        </span>
+                        <div className="task__section">
+                            <input className="task__title task__title--edit" type="text" name="title" placeholder="new Task" value={titleInput} onChange={(e) => setTitleInput(e.target.value)} />
+                            <span className="task__status">{task.status}</span>
+                        </div>
+                        <div className="task__section">
+                            <input className="task__description task__description--edit" type="text" name="Description" placeholder="Description" value={descriptionInput} onChange={(e) => setDescriptionInput(e.target.value)} />
+                            <div className="task__section--cycle">
+                                <span className="task__cycles">{task.actualCycle} / </span>
+                                <input className="task__cycles task__cycles--edit" type="number" min={0} max={9} name="cycle" placeholder="Number of Cycle to finish" defaultValue={cycleInput} onChange={handleCycleChange} />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" checked={task.isDone} readOnly />
-                        <button onClick={handleUpdateClick}>Confirm Update</button>
-                        <button onClick={handleIsOpenUpdate}>Cancel Update</button>
+                    <div className="task__section task__section--button">
+                        <input className="task__checkbox" type="checkbox" checked={task.isDone} readOnly />
+                        <div className="task__buttons">
+                            <button className="task__button" onClick={handleUpdateClick}>Confirm Update</button>
+                            <button className="task__button" onClick={handleIsOpenUpdate}>Cancel Update</button>
+                        </div>
                     </div>
                 </>
             }

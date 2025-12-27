@@ -1,0 +1,142 @@
+.task {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: #557ddb;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+    padding: 1rem;
+    color: #e9e9e9;
+
+    &:not(.task--no-hover):hover {
+        background-color: #374d80;
+    }
+
+    .task__section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .task__section--cycle {
+            width: 3rem;
+        }
+
+        &--button {
+            margin-bottom: 0rem;
+        }
+
+        .task__buttons {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+}
+
+.task__button {
+    font-size: 1.2rem;
+    width: clamp(5rem, 20vw, 15rem);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #03afbb;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #01848d;
+    }
+}
+
+.task__title {
+    width: 70%;
+    font-size: 1.5rem;
+
+    &--edit {
+        background-color: #c4d1ff;
+        border: none;
+        font-family: "Times New Roman";
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+}
+
+.task__status {
+    font-size: 1.1rem;
+    background-color: #1F2A44;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+
+    &--edit {
+        background-color: #c4d1ff;
+        border-radius: 0;
+        border: 0;
+        width: 8rem;
+    }
+}
+
+.task__description {
+    font-size: 1.1rem;
+    width: 70%;
+
+    &--edit {
+        background-color: #c4d1ff;
+        border: none;
+        font-family: "Times New Roman";
+    }
+}
+
+.task__cycles {
+    font-size: 1.1rem;
+    width: 3rem;
+
+    &--edit {
+        background-color: #c4d1ff;
+        width: 1.5rem;
+        font-family: "Times New Roman";
+        border: none;
+    }
+
+    &--add {
+        background-color: #c4d1ff;
+        font-family: "Times New Roman";
+        border: none;
+    }
+}
+
+.task__checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: #26b963;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .task__button {
+        font-size: clamp(1rem, 4vw, 3rem);
+        width: clamp(5rem, 20vw, 20rem);
+    }
+
+    .task__title {
+
+        &--edit {
+            width: 40%;
+        }
+    }
+
+    .task__description {
+
+        &--edit {
+            width: 40%;
+        }
+    }
+
+    .task__status {
+        font-size: clamp(0.5rem, 3vw, 1.1rem);
+
+        &--edit {
+            width: clamp(6rem, 5vw, 8rem);
+    }
+    }
+}

@@ -40,9 +40,9 @@ export default function Countdown({ timer, isStart, handleStartOrStop, onNextCyc
     }, [timer]);
 
     return (
-        <>
-            <div>{formatMS(timer)}</div>
+        <section className="countdown">
+            <span className="countdown__timer">{formatMS(timer)}</span>
             <StartPauseButton isStart={isStart} onClickStartOrStop={handleStartOrStop} />
-        </>
+        </section>
     )
 }
