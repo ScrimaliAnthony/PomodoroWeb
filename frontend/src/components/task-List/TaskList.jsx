@@ -20,13 +20,15 @@ export default function TaskList({ tasks, dispatchTasks, onTaskAdd }) {
         dispatchTasks({ type: "update", titleInput, descriptionInput, cycleInput, id });
     }
 
-    return <>
-        {tasks.map((task, index) => 
-            <Task
-                key={task.id} task={task} index={index}
-                onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} onDeleteTask={handleTaskDelete} onUpdateTask={handleTaskUpdate}
-            />
-        )}
-        <AddTask TASK_STATUS={TASK_STATUS} onTaskAdd={onTaskAdd} /> 
-    </>
+    return (
+        <>
+            {tasks.map((task, index) => 
+                <Task
+                    key={task.id} task={task} index={index}
+                    onTaskSelect={handleTaskSelect} onCheckBoxClick={handleTaskDone} onDeleteTask={handleTaskDelete} onUpdateTask={handleTaskUpdate}
+                />
+            )}
+            <AddTask TASK_STATUS={TASK_STATUS} onTaskAdd={onTaskAdd} /> 
+        </>
+    )
 }

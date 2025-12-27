@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { PhaseProvider } from './context/PhaseContext.jsx';
 import { CycleProvider } from './context/CycleContext.jsx';
+import "./main.scss";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

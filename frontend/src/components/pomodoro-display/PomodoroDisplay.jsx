@@ -8,12 +8,14 @@ export default function PomodoroDisplay({ onClickUpdate }) {
     const { phases } = useContext(PhaseContext);
     return (
         <>
-            <h1>Pomodoro</h1>
+            <h1 className="pomodoro__title">Pomodoro</h1>
             <PomodoroCycle />
-            {phases.map(phase => 
-                <PomodoroPhase key={phase.id} phase={phase} />
-            )}
-            <button onClick={onClickUpdate}>Update Pomodor</button>
+            <div className="pomodoro__phases">
+                {phases.map(phase => 
+                    <PomodoroPhase key={phase.id} phase={phase} />
+                )}
+            </div>
+            <button className="pomodoro__button" onClick={onClickUpdate}>Update Pomodor</button>
         </>
     )
 }

@@ -7,9 +7,10 @@ export default function PomodoroPhase({ phase }) {
     const isCurrentPhase = currentPhase === phase.id;
 
     return (
-        <p style={isCurrentPhase ? { fontWeight: "bold", cursor: "pointer" } : {cursor: "pointer"}}
+        <button 
+            className={`pomodoro__phase ${isCurrentPhase ? "pomodoro__phase--active" : ""}`}
             onClick={() => setCurrentPhase(phase.id)}>
-            {phase.label} {displayFormat(phase.minutes, phase.seconds)}
-        </p>
+                {phase.label}&nbsp;{displayFormat(phase.minutes, phase.seconds)}
+        </button>
     )
 }

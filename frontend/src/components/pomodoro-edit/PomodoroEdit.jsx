@@ -20,6 +20,12 @@ export default function PomodoroEdit({ onClickUpdate, onEdit }) {
         if(totalCycleRef.current < cycleRef.current) {
             cycleRef.current = totalCycleRef.current;
         }
+        if(totalCycleRef.current > 99) {
+            totalCycleRef.current = 99;
+        }
+        if(totalCycleRef.current < 1) {
+            totalCycleRef.current = 1;
+        }
     }
 
     const handleMinuteRef = (e, id) => {
@@ -36,13 +42,17 @@ export default function PomodoroEdit({ onClickUpdate, onEdit }) {
 
     return (
         <>
-            <h1>Edit Mode</h1>
+            <h1 className="pomodoro__title">Pomodoro</h1>
             <PomodoroCycleEdit onChangeTotalCycle={handleTotalCycleRef} />
-            {phases.map(phase => 
-                <PomodoroPhaseEdit key={phase.id} phase={phase} onUpdateMinutes={handleMinuteRef} onUpdateSecond={handleSecondRef} />
-            )}
-            <button onClick={handleUpdateClick}>Confirm Update</button>
-            <button onClick={onClickUpdate}>Cancel Update</button>
+            <div className="pomodoro__phases">
+                {phases.map(phase => 
+                    <PomodoroPhaseEdit key={phase.id} phase={phase} onUpdateMinutes={handleMinuteRef} onUpdateSecond={handleSecondRef} />
+                )}
+            </div>
+            <div className="pomodoro__update">
+                <button className="pomodoro__button pomodoro__button--update" onClick={handleUpdateClick}>Confirm Update</button>
+                <button className="pomodoro__button pomodoro__button--update" onClick={onClickUpdate}>Cancel Update</button>
+            </div>
         </>
     )
 }

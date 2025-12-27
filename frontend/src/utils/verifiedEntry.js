@@ -1,4 +1,4 @@
-export default function verifiedEntry(n, fallback = 0) {
+export default function verifiedEntry(n, fallback) {
     if (!Number.isFinite(n)) {
         return fallback;
     }

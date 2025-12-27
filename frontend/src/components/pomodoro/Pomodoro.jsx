@@ -31,12 +31,12 @@ export default function Pomodoro() {
     }
     
     return (
-        <>
+        <section className="pomodoro">
             {isEditMode ? 
                 <PomodoroEdit onClickUpdate={handleEditMode} onEdit={handleEditPomodoro} />    
                 :
                 <PomodoroDisplay onClickUpdate={handleEditMode} />
             }
-        </>
+        </section>
     )
 }
