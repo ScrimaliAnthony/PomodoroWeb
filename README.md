@@ -1,8 +1,12 @@
 <h1 align="center">PomodoroWeb</h1>
 
-## Video
+## Video Demo
 
 ulr:
+
+## Live Demo
+
+url: https://pomodoro-web-phi.vercel.app/
 
 ## Description
 

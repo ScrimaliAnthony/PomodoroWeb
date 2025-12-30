@@ -25,7 +25,7 @@
         .pomodoro__cycle__input {
             font: inherit;
             background-color: #c4d1ff;
-            width: 1.75rem;
+            width: 2rem;
             border: none;
         }
     }
@@ -78,7 +78,7 @@
             .pomodoro__phase__input {
                 font-family: arial;
                 font-size: clamp(1rem, 1.5vw, 1.5rem);
-                width: clamp(1.1rem, 2vw, 1.5rem);
+                width: clamp(1.7rem, 2vw, 1.5rem);
                 background-color: #c4d1ff;
                 border: none;
             }

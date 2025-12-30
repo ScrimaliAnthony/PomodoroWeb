@@ -15,7 +15,7 @@ export default function PomodoroDisplay({ onClickUpdate }) {
                     <PomodoroPhase key={phase.id} phase={phase} />
                 )}
             </div>
-            <button className="pomodoro__button" onClick={onClickUpdate}>Update Pomodor</button>
+            <button className="pomodoro__button" onClick={onClickUpdate}>Update Pomodoro</button>
         </>
     )
 }
