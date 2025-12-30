@@ -1,5 +1,5 @@
-@use "./app";
-@use "./components/pomodoro/pomodoro";
-@use "./components/countdown/countdown";
-@use "./components/task/task";
-@use "./components/add-task/addTask";
+@use "./style/app";
+@use "./style/addTask";
+@use "./style/countdown";
+@use "./style/pomodoro";
+@use "./style/task";
